@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Calculateur de Moyenne Générale</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #f0f7ff;
+    color: #222;
+  }
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  .language-select {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  select {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+  .matiere {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+  }
+  label {
+    display: inline-block;
+    width: 130px;
+    margin: 6px 0;
+  }
+  input[type=number] {
+    width: 60px;
+    padding: 4px;
+  }
+  button {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #2980b9;
+  }
+  #resultat {
+    background: #dff0d8;
+    color: #3c763d;
+    font-weight: bold;
+    padding: 18px;
+    border-radius: 10px;
+    margin-top: 25px;
+    text-align: center;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="language-select">
+  <label for="lang-select" id="label-lang">Choisir la langue :</label>
+  <select id="lang-select" onchange="changeLang()">
+    <option value="fr">Français</option>
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="de">Deutsch</option>
+  </select>
+</div>
+
+<h1 id="title">Calculateur de Moyenne Générale</h1>
+
+<form id="form">
+
+  <!-- Matières -->
+  <div class="matiere" id="matiere_math">
+    <h2 id="label_math">Math</h2>
+    <label id="label_coef_math" for="coef_math">Coefficient :</label>
+    <input type="number" id="coef_math" min="1" value="1"><br>
+    <label id="label_devoir_math" for="devoir_math">Devoir :</label>
+    <input type="number" id="devoir_math" min="0" max="20"><br>
+    <label id="label_eval_math" for="eval_math">Évaluation :</label>
+    <input type="number" id="eval_math" min="0" max="20"><br>
+    <label id="label_exam_math" for="exam_math">Examen :</label>
+    <input type="number" id="exam_math" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_math" onchange="toggleTd('math')"> Activer TD</label><br>
+    <label id="label_td_math" for="td_math" class="hidden">TD :</label>
+    <input type="number" id="td_math" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_science">
+    <h2 id="label_science">Science</h2>
+    <label id="label_coef_science" for="coef_science">Coefficient :</label>
+    <input type="number" id="coef_science" min="1" value="1"><br>
+    <label id="label_devoir_science" for="devoir_science">Devoir :</label>
+    <input type="number" id="devoir_science" min="0" max="20"><br>
+    <label id="label_eval_science" for="eval_science">Évaluation :</label>
+    <input type="number" id="eval_science" min="0" max="20"><br>
+    <label id="label_exam_science" for="exam_science">Examen :</label>
+    <input type="number" id="exam_science" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_science" onchange="toggleTd('science')"> Activer TD</label><br>
+    <label id="label_td_science" for="td_science" class="hidden">TD :</label>
+    <input type="number" id="td_science" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_phisique">
+    <h2 id="label_phisique">Physique</h2>
+    <label id="label_coef_phisique" for="coef_phisique">Coefficient :</label>
+    <input type="number" id="coef_phisique" min="1" value="1"><br>
+    <label id="label_devoir_phisique" for="devoir_phisique">Devoir :</label>
+    <input type="number" id="devoir_phisique" min="0" max="20"><br>
+    <label id="label_eval_phisique" for="eval_phisique">Évaluation :</label>
+    <input type="number" id="eval_phisique" min="0" max="20"><br>
+    <label id="label_exam_phisique" for="exam_phisique">Examen :</label>
+    <input type="number" id="exam_phisique" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_phisique" onchange="toggleTd('phisique')"> Activer TD</label><br>
+    <label id="label_td_phisique" for="td_phisique" class="hidden">TD :</label>
+    <input type="number" id="td_phisique" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_francais">
+    <h2 id="label_francais">Français</h2>
+    <label id="label_coef_francais" for="coef_francais">Coefficient :</label>
+    <input type="number" id="coef_francais" min="1" value="1"><br>
+    <label id="label_devoir_francais" for="devoir_francais">Devoir :</label>
+    <input type="number" id="devoir_francais" min="0" max="20"><br>
+    <label id="label_eval_francais" for="eval_francais">Évaluation :</label>
+    <input type="number" id="eval_francais" min="0" max="20"><br>
+    <label id="label_exam_francais" for="exam_francais">Examen :</label>
+    <input type="number" id="exam_francais" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_francais" onchange="toggleTd('francais')"> Activer TD</label><br>
+    <label id="label_td_francais" for="td_francais" class="hidden">TD :</label>
+    <input type="number" id="td_francais" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_anglais">
+    <h2 id="label_anglais">Anglais</h2>
+    <label id="label_coef_anglais" for="coef_anglais">Coefficient :</label>
+    <input type="number" id="coef_anglais" min="1" value="1"><br>
+    <label id="label_devoir_anglais" for="devoir_anglais">Devoir :</label>
+    <input type="number" id="devoir_anglais" min="0" max="20"><br>
+    <label id="label_eval_anglais" for="eval_anglais">Évaluation :</label>
+    <input type="number" id="eval_anglais" min="0" max="20"><br>
+    <label id="label_exam_anglais" for="exam_anglais">Examen :</label>
+    <input type="number" id="exam_anglais" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_anglais" onchange="toggleTd('anglais')"> Activer TD</label><br>
+    <label id="label_td_anglais" for="td_anglais" class="hidden">TD :</label>
+    <input type="number" id="td_anglais" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_histoire">
+    <h2 id="label_histoire">Histoire et Géographie</h2>
+    <label id="label_coef_histoire" for="coef_histoire">Coefficient :</label>
+    <input type="number" id="coef_histoire" min="1" value="1"><br>
+    <label id="label_devoir_histoire" for="devoir_histoire">Devoir :</label>
+    <input type="number" id="devoir_histoire" min="0" max="20"><br>
+    <label id="label_eval_histoire" for="eval_histoire">Évaluation :</label>
+    <input type="number" id="eval_histoire" min="0" max="20"><br>
+    <label id="label_exam_histoire" for="exam_histoire">Examen :</label>
+    <input type="number" id="exam_histoire" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_histoire" onchange="toggleTd('histoire')"> Activer TD</label><br>
+    <label id="label_td_histoire" for="td_histoire" class="hidden">TD :</label>
+    <input type="number" id="td_histoire" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <div class="matiere" id="matiere_education_islamique">
+    <h2 id="label_education_islamique">Éducation Islamique</h2>
+    <label id="label_coef_education_islamique" for="coef_education_islamique">Coefficient :</label>
+    <input type="number" id="coef_education_islamique" min="1" value="1"><br>
+    <label id="label_devoir_education_islamique" for="devoir_education_islamique">Devoir :</label>
+    <input type="number" id="devoir_education_islamique" min="0" max="20"><br>
+    <label id="label_eval_education_islamique" for="eval_education_islamique">Évaluation :</label>
+    <input type="number" id="eval_education_islamique" min="0" max="20"><br>
+    <label id="label_exam_education_islamique" for="exam_education_islamique">Examen :</label>
+    <input type="number" id="exam_education_islamique" min="0" max="20"><br>
+    <label><input type="checkbox" id="td_active_education_islamique" onchange="toggleTd('education_islamique')"> Activer TD</label><br>
+    <label id="label_td_education_islamique" for="td_education_islamique" class="hidden">TD :</label>
+    <input type="number" id="td_education_islamique" min="0" max="20" class="hidden"><br>
+  </div>
+
+  <button type="button" onclick="calculerMoyenne()">Calculer la Moyenne</button>
+</form>
+
+<div id="resultat" class="hidden"></div>
+
+<script>
+const texts = {
+  fr: {
+    title: "Calculateur de Moyenne Générale",
+    chooseLang: "Choisir la langue :",
+    math: "Math",
+    science: "Science",
+    phisique: "Physique",
+    francais: "Français",
+    anglais: "Anglais",
+    histoire: "Histoire et Géographie",
+    education_islamique: "Éducation Islamique",
+    coef: "Coefficient :",
+    devoir: "Devoir :",
+    eval: "Évaluation :",
+    exam: "Examen :",
+    tdActivate: "Activer TD",
+    td: "TD :",
+    calcBtn: "Calculer la Moyenne",
+    resultPass: "Ça passe",
+    resultFail: "Aye aye aye",
+    invalidInput: "Veuillez entrer des notes valides entre 0 et 20.",
+  },
+  en: {
+    title: "General Average Calculator",
+    chooseLang: "Choose language:",
+    math: "Math",
+    science: "Science",
+    phisique: "Physics",
+    francais: "French",
+    anglais: "English",
+    histoire: "History and Geography",
+    education_islamique: "Islamic Education",
+    coef: "Coefficient:",
+    devoir: "Homework:",
+    eval: "Assessment:",
+    exam: "Exam:",
+    tdActivate: "Enable TD",
+    td: "TD:",
+    calcBtn: "Calculate Average",
+    resultPass: "Passed",
+    resultFail: "Failed",
+    invalidInput: "Please enter valid grades between 0 and 20.",
+  },
+  ar: {
+    title: "حاسبة المعدل العام",
+    chooseLang: "اختر اللغة:",
+    math: "الرياضيات",
+    science: "العلوم",
+    phisique: "الفيزياء",
+    francais: "الفرنسية",
+    anglais: "الإنجليزية",
+    histoire: "التاريخ والجغرافيا",
+    education_islamique: "التربية الإسلامية",
+    coef: "المعامل:",
+    devoir: "الواجب:",
+    eval: "التقييم:",
+    exam: "الامتحان:",
+    tdActivate: "تفعيل TD",
+    td: "TD:",
+    calcBtn: "احسب المعدل",
+    resultPass: "ناجح",
+    resultFail: "راسب",
+    invalidInput: "يرجى إدخال درجات صحيحة بين 0 و 20.",
+  },
+  de: {
+    title: "Durchschnittsrechner",
+    chooseLang: "Sprache wählen:",
+    math: "Mathe",
+    science: "Naturwissenschaft",
+    phisique: "Physik",
+    francais: "Französisch",
+    anglais: "Englisch",
+    histoire: "Geschichte und Geografie",
+    education_islamique: "Islamische Erziehung",
+    coef: "Koeffizient:",
+    devoir: "Hausaufgabe:",
+    eval: "Bewertung:",
+    exam: "Prüfung:",
+    tdActivate: "TD aktivieren",
+    td: "TD:",
+    calcBtn: "Durchschnitt berechnen",
+    resultPass: "Bestanden",
+    resultFail: "Nicht bestanden",
+    invalidInput: "Bitte geben Sie gültige Noten zwischen 0 und 20 ein.",
+  }
+};
+
+function changeLang() {
+  const lang = document.getElementById('lang-select').value;
+  const t = texts[lang];
+
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('label-lang').textContent = t.chooseLang;
+
+  // Mise à jour des matières
+  document.getElementById('label_math').textContent = t.math;
+  document.getElementById('label_coef_math').textContent = t.coef;
+  document.getElementById('label_devoir_math').textContent = t.devoir;
+  document.getElementById('label_eval_math').textContent = t.eval;
+  document.getElementById('label_exam_math').textContent = t.exam;
+  document.querySelector('#td_active_math + label').textContent = '';
+  document.querySelector('#td_active_math + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_math').textContent = t.td;
+
+  document.getElementById('label_science').textContent = t.science;
+  document.getElementById('label_coef_science').textContent = t.coef;
+  document.getElementById('label_devoir_science').textContent = t.devoir;
+  document.getElementById('label_eval_science').textContent = t.eval;
+  document.getElementById('label_exam_science').textContent = t.exam;
+  document.querySelector('#td_active_science + label').textContent = '';
+  document.querySelector('#td_active_science + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_science').textContent = t.td;
+
+  document.getElementById('label_phisique').textContent = t.phisique;
+  document.getElementById('label_coef_phisique').textContent = t.coef;
+  document.getElementById('label_devoir_phisique').textContent = t.devoir;
+  document.getElementById('label_eval_phisique').textContent = t.eval;
+  document.getElementById('label_exam_phisique').textContent = t.exam;
+  document.querySelector('#td_active_phisique + label').textContent = '';
+  document.querySelector('#td_active_phisique + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_phisique').textContent = t.td;
+
+  document.getElementById('label_francais').textContent = t.francais;
+  document.getElementById('label_coef_francais').textContent = t.coef;
+  document.getElementById('label_devoir_francais').textContent = t.devoir;
+  document.getElementById('label_eval_francais').textContent = t.eval;
+  document.getElementById('label_exam_francais').textContent = t.exam;
+  document.querySelector('#td_active_francais + label').textContent = '';
+  document.querySelector('#td_active_francais + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_francais').textContent = t.td;
+
+  document.getElementById('label_anglais').textContent = t.anglais;
+  document.getElementById('label_coef_anglais').textContent = t.coef;
+  document.getElementById('label_devoir_anglais').textContent = t.devoir;
+  document.getElementById('label_eval_anglais').textContent = t.eval;
+  document.getElementById('label_exam_anglais').textContent = t.exam;
+  document.querySelector('#td_active_anglais + label').textContent = '';
+  document.querySelector('#td_active_anglais + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_anglais').textContent = t.td;
+
+  document.getElementById('label_histoire').textContent = t.histoire;
+  document.getElementById('label_coef_histoire').textContent = t.coef;
+  document.getElementById('label_devoir_histoire').textContent = t.devoir;
+  document.getElementById('label_eval_histoire').textContent = t.eval;
+  document.getElementById('label_exam_histoire').textContent = t.exam;
+  document.querySelector('#td_active_histoire + label').textContent = '';
+  document.querySelector('#td_active_histoire + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_histoire').textContent = t.td;
+
+  document.getElementById('label_education_islamique').textContent = t.education_islamique;
+  document.getElementById('label_coef_education_islamique').textContent = t.coef;
+  document.getElementById('label_devoir_education_islamique').textContent = t.devoir;
+  document.getElementById('label_eval_education_islamique').textContent = t.eval;
+  document.getElementById('label_exam_education_islamique').textContent = t.exam;
+  document.querySelector('#td_active_education_islamique + label').textContent = '';
+  document.querySelector('#td_active_education_islamique + label').appendChild(document.createTextNode(t.tdActivate));
+  document.getElementById('label_td_education_islamique').textContent = t.td;
+
+  document.querySelector('button').textContent = t.calcBtn;
+}
+
+function toggleTd(matiere) {
+  const active = document.getElementById('td_active_' + matiere).checked;
+  document.getElementById('td_' + matiere).classList.toggle('hidden', !active);
+  document.getElementById('label_td_' + matiere).classList.toggle('hidden', !active);
+}
+
+function calculerMoyenne() {
+  const lang = document.getElementById('lang-select').value;
+  const t = texts[lang];
+  const matieres = ['math', 'science', 'phisique', 'francais', 'anglais', 'histoire', 'education_islamique'];
+
+  let totalCoef = 0;
+  let totalNote = 0;
+
+  for (let m of matieres) {
+    const coef = Number(document.getElementById('coef_' + m).value);
+    const devoir = Number(document.getElementById('devoir_' + m).value);
+    const evalNote = Number(document.getElementById('eval_' + m).value);
+    const exam = Number(document.getElementById('exam_' + m).value);
+
+    if (
+      isNaN(coef) || coef <= 0 ||
+      isNaN(devoir) || devoir < 0 || devoir > 20 ||
+      isNaN(evalNote) || evalNote < 0 || evalNote > 20 ||
+      isNaN(exam) || exam < 0 || exam > 20
+    ) {
+      alert(t.invalidInput);
+      return;
+    }
+
+    const tdActive = document.getElementById('td_active_' + m).checked;
+    let td = 0;
+    if (tdActive) {
+      td = Number(document.getElementById('td_' + m).value);
+      if (isNaN(td) || td < 0 || td > 20) {
+        alert(t.invalidInput);
+        return;
+      }
+    }
+
+    // Calcul de la moyenne matière
+    let moyenneMat = 0;
+    if (tdActive) {
+      moyenneMat = (devoir + evalNote + td + 2 * exam) / 5;
+    } else {
+      moyenneMat = (devoir + evalNote + 2 * exam) / 4;
+    }
+
+    totalCoef += coef;
+    totalNote += moyenneMat * coef;
+  }
+
+  const moyenneGenerale = totalNote / totalCoef;
+
+  const resultatDiv = document.getElementById('resultat');
+  resultatDiv.classList.remove('hidden');
+  resultatDiv.textContent = `${t.title} : ${moyenneGenerale.toFixed(2)} — ${moyenneGenerale >= 10 ? t.resultPass : t.resultFail}`;
+}
+
+// Initialisation à la langue française
+changeLang();
+</script>
+
+</body>
+</html>
